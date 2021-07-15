@@ -23,36 +23,29 @@ const Home = props => {
 
 	const history = useHistory();
 
-	const onFormSubmit = () => {
+	const onFormSubmit = async () => {
 		if (!email || !password) {
 			toast.error('Fill all values');
 			return;
 		}
-		props.setIsLoggedIn(true);
-		toast.success('Logged in!');
-		setTimeout(() => history.push('/dashboard'), 3000);
-		/*
+
 		await api
 			.post(`/verify`, { email, password })
 			.then(res => {
-				if (res.status === 200) {
-					localStorage.setItem('email', email);
-					props.setIsLoggedIn(true);
-					toast.success('Submitted! An email has been sent.');
-					setTimeout(() => history.push('/dashboard', { status: true }), 3000);
-				}
+				localStorage.setItem('id', res.data.id);
+				props.setIsLoggedIn(true);
+				toast.success('Success! You are logged in.');
+				setTimeout(() => history.push('/dashboard', { id: res.data.id, balance: res.data.balance }), 3000);
 			})
 			.catch(err => {
-				console.log(err);
-				toast.error('An error occured.');
+				toast.error(err.response.data.message);
 			});
-			*/
 	};
 
 	return (
 		<Flex justify="center" align="center" wrap="no-wrap">
 			<Container maxW="xl" mt="15vh" centerContent>
-				<Box padding="10" minWidth="20vh" bg="gray.100" borderRadius={10}>
+				<Box padding="10" minWidth="30vw" bg="gray.50" borderRadius={10}>
 					<Center>
 						<Text fontSize="3xl">Login</Text>
 					</Center>

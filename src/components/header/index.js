@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
 	Drawer,
 	DrawerHeader,
@@ -41,15 +42,15 @@ const Header = props => {
 							<DrawerOverlay />
 							<DrawerContent>
 								<DrawerCloseButton />
-								<DrawerHeader>Hello person!</DrawerHeader>
+								<DrawerHeader>Hello!</DrawerHeader>
 							</DrawerContent>
 						</Drawer>
 					</>
 				)}
 
-				<Flex flex={{ base: 1 }} justify={{ base: 'center' }} mr={{ base: 27 }}>
+				<Flex flex={{ base: 1 }} justify={{ base: 'center' }}>
 					<Text fontSize="2xl" fontFamily={'heading'} color={useColorModeValue('gray.800', 'white')}>
-						MiniBank
+						<Link to="/">MiniBank</Link>
 					</Text>
 				</Flex>
 			</Flex>
