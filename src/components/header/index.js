@@ -100,6 +100,9 @@ const Header = props => {
 									<Text fontSize="2xl" paddingBottom="3">
 										<NavLink to="/admin/transfer">Transfer Money</NavLink>
 									</Text>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/admin/allTransactions">All Transactions</NavLink>
+									</Text>
 								</DrawerBody>
 								<DrawerFooter borderTopWidth="1px" justifyContent="flex-start">
 									<Button

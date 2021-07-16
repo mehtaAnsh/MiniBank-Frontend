@@ -16,6 +16,7 @@ const UserTransactions = lazy(() => import('./userTransactions'));
 const AdminHome = lazy(() => import('./admin/home'));
 const AdminTransfer = lazy(() => import('./admin/transfer'));
 const AdminUsers = lazy(() => import('./admin/users'));
+const AdminAllTransactions = lazy(() => import('./admin/allTransactions'));
 
 const App = () => {
 	const [userDetails, setUserDetails] = useState({});
@@ -53,6 +54,7 @@ const App = () => {
 								<Route exact path="/admin/home" component={AdminHome} />
 								<Route exact path="/admin/users" component={AdminUsers} />
 								<Route exact path="/admin/transfer" component={AdminTransfer} />
+								<Route exact path="/admin/allTransactions" component={AdminAllTransactions} />
 
 								<Route exact path="/">
 									<Home
