@@ -31,7 +31,7 @@ const App = () => {
 
 	return (
 		<div style={{ minHeight: '100vh' }}>
-			<AuthContext.Provider value={{ isLoggedIn, userDetails }}>
+			<AuthContext.Provider value={{ isAdmin, isLoggedIn, userDetails }}>
 				<BrowserRouter>
 					<Suspense fallback={loader}>
 						<Header
