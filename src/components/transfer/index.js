@@ -53,7 +53,7 @@ const Transfer = () => {
 	return (
 		<Flex justify="center" align="center" wrap="no-wrap">
 			<Container maxW="xl" mt="15vh" centerContent>
-				<motion.div animate={{ scale: 1.1 }} transition={{ duration: 0.5 }}>
+				<motion.div animate={{ scale: 1.04 }} transition={{ duration: 0.5 }}>
 					<Box padding="10" minWidth="30vw" bg="gray.50" borderRadius={10}>
 						<Center>
 							<Text fontSize="3xl">Transfer Money</Text>

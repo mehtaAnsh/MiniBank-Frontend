@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import api from '../../api';
 
 const Dashboard = props => {
 	const history = useHistory();
@@ -10,14 +11,19 @@ const Dashboard = props => {
 	const [balance, setBal] = useState(0);
 	const auth = useContext(AuthContext);
 
-	useEffect(() => {
+	useEffect(async () => {
 		if (props.location.state === undefined) {
 			history.push('/');
 			return;
 		}
 		console.log(auth);
 		setId(auth.userDetails.id);
-		setBal(auth.userDetails.balance);
+		await api
+			.post('/getBal', { id: auth.userDetails.id })
+			.then(res => {
+				if (res.status === 201) setBal(res.data.balance);
+			})
+			.catch(err => toast.error(err.response.data.message));
 		setTimeout(() => toast.success('Check the sidebar for all features.'), 1000);
 	}, []);
 
