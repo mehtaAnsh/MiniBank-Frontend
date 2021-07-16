@@ -20,7 +20,16 @@ const Transactions = () => {
 			await api
 				.post('/getTransactionsById', { id: auth.userDetails.id })
 				.then(res => {
-					setData(res.data.sortedArray.reverse());
+					if (res.status === 201) {
+						var arr = res.data.sortedArray.reverse();
+						arr.forEach(obj => {
+							if (obj.sender_id === 100) obj.sender_id = <b>Transferred from bank</b>;
+							if (obj.receiver_id === 100) obj.receiver_id = <b>Transferred to bank</b>;
+						});
+						setData(arr);
+					} else {
+						toast.error('An error occured.');
+					}
 				})
 				.catch(err => toast.error(err.response.data.message));
 	}, []);

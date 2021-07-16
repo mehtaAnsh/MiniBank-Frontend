@@ -54,7 +54,7 @@ const Transfer = () => {
 			<Container maxW="xl" mt="15vh" centerContent>
 				<Box padding="10" minWidth="30vw" bg="gray.50" borderRadius={10}>
 					<Center>
-						<Text fontSize="3xl">Login</Text>
+						<Text fontSize="3xl">Transfer Money</Text>
 					</Center>
 					<Divider paddingTop="5" />
 					<Center>
@@ -67,6 +67,7 @@ const Transfer = () => {
 								type="text"
 							/>
 							<FormHelperText>Make sure to enter correct ID of 16 length.</FormHelperText>
+							<FormHelperText>Add this to transfer: 6136533638928856 (for testing)</FormHelperText>
 						</FormControl>
 					</Center>
 					<Center>

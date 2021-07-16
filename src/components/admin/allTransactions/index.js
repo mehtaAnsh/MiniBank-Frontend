@@ -25,7 +25,7 @@ const AdminAllTransactions = () => {
 					var arr = res.data.transactions.reverse();
 					arr.forEach(obj => {
 						if (obj.sender_id === 100) obj.sender_id = <b>Transferred from bank</b>;
-						if (obj.receiver_id === 100) obj.receiver_id = <b>Transferred from bank</b>;
+						if (obj.receiver_id === 100) obj.receiver_id = <b>Transferred to bank</b>;
 					});
 					setUsers(arr);
 				}
