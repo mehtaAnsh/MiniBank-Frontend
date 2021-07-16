@@ -5,12 +5,16 @@ import { Toaster } from 'react-hot-toast';
 import Header from './header';
 import Home from './home';
 import Footer from './footer';
+import { AuthContext } from '../context/AuthContext';
 
 import './App.css';
 
-import Dashboard from './dashboard';
+const Dashboard = lazy(() => import('./dashboard'));
+const Transfer = lazy(() => import('./transfer'));
+const Transactions = lazy(() => import('./transactions'));
 
 const App = () => {
+	const [userDetails, setUserDetails] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const loader = () => (
 		<div className="d-flex justify-content-center" data-aos="fade-out">
@@ -22,21 +26,29 @@ const App = () => {
 
 	return (
 		<div style={{ minHeight: '100vh' }}>
-			<BrowserRouter>
-				<Suspense fallback={loader}>
-					<Header isLoggedIn={isLoggedIn} />
-					<Toaster />
-					<Switch>
-						<div style={{ minHeight: '84.5vh' }}>
-							<Route exact path="/dashboard" component={Dashboard} />
-							<Route exact path="/">
-								<Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-							</Route>
-						</div>
-					</Switch>
-					<Footer />
-				</Suspense>
-			</BrowserRouter>
+			<AuthContext.Provider value={{ isLoggedIn, userDetails }}>
+				<BrowserRouter>
+					<Suspense fallback={loader}>
+						<Header setUserDetails={setUserDetails} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+						<Toaster />
+						<Switch>
+							<div style={{ minHeight: '84.5vh' }}>
+								<Route exact path="/dashboard" component={Dashboard} />
+								<Route exact path="/transfer" component={Transfer} />
+								<Route exact path="/transactions" component={Transactions} />
+								<Route exact path="/">
+									<Home
+										setUserDetails={setUserDetails}
+										isLoggedIn={isLoggedIn}
+										setIsLoggedIn={setIsLoggedIn}
+									/>
+								</Route>
+							</div>
+						</Switch>
+						<Footer />
+					</Suspense>
+				</BrowserRouter>
+			</AuthContext.Provider>
 		</div>
 	);
 };

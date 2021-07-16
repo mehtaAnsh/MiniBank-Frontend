@@ -1,20 +1,23 @@
 import { Flex, Container, Box, Center, Divider, Text } from '@chakra-ui/layout';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const Dashboard = props => {
 	const history = useHistory();
 	const [id, setId] = useState('');
 	const [balance, setBal] = useState(0);
+	const auth = useContext(AuthContext);
 
 	useEffect(() => {
 		if (props.location.state === undefined) {
 			history.push('/');
 			return;
 		}
-		setId(props.location.state.id);
-		setBal(props.location.state.balance);
+		console.log(auth);
+		setId(auth.userDetails.id);
+		setBal(auth.userDetails.balance);
 		setTimeout(() => toast.success('Check the sidebar for all features.'), 1000);
 	}, []);
 

@@ -1,22 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import {
 	Drawer,
 	DrawerHeader,
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
+	DrawerBody,
 	useDisclosure,
 	Box,
 	Flex,
 	Text,
 	Button,
 	useColorModeValue,
+	DrawerFooter,
 } from '@chakra-ui/react';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { AuthContext } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Header = props => {
+	const history = useHistory();
+	const auth = useContext(AuthContext);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 
@@ -33,7 +39,7 @@ const Header = props => {
 				borderColor={useColorModeValue('gray.200', 'gray.900')}
 				align={'center'}
 			>
-				{props.isLoggedIn && (
+				{auth.isLoggedIn && (
 					<>
 						<Button ref={btnRef} colorScheme="blue" onClick={onOpen}>
 							<GiHamburgerMenu />
@@ -42,7 +48,33 @@ const Header = props => {
 							<DrawerOverlay />
 							<DrawerContent>
 								<DrawerCloseButton />
-								<DrawerHeader>Hello!</DrawerHeader>
+								<DrawerHeader borderBottomWidth="1px">Hello user!</DrawerHeader>
+								<DrawerBody>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/dashboard">Home</NavLink>
+									</Text>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/transfer">Transfer</NavLink>
+									</Text>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/transactions">Transactions</NavLink>
+									</Text>
+								</DrawerBody>
+								<DrawerFooter borderTopWidth="1px" justifyContent="flex-start">
+									<Button
+										variant="outline"
+										bg="red.500"
+										onClick={() => {
+											localStorage.clear();
+											props.setIsLoggedIn(false);
+											props.setUserDetails({});
+											toast.success('Logging out..');
+											setTimeout(() => history.push('/'), 3000);
+										}}
+									>
+										Log out
+									</Button>
+								</DrawerFooter>
 							</DrawerContent>
 						</Drawer>
 					</>
@@ -50,7 +82,7 @@ const Header = props => {
 
 				<Flex flex={{ base: 1 }} justify={{ base: 'center' }}>
 					<Text fontSize="2xl" fontFamily={'heading'} color={useColorModeValue('gray.800', 'white')}>
-						<Link to="/">MiniBank</Link>
+						<NavLink to="/">MiniBank</NavLink>
 					</Text>
 				</Flex>
 			</Flex>
