@@ -14,6 +14,7 @@ import {
 	Button,
 } from '@chakra-ui/react';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 import api from '../../api';
 import { AuthContext } from '../../context/AuthContext';
