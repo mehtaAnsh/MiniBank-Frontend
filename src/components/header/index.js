@@ -57,7 +57,7 @@ const Header = props => {
 										<NavLink to="/transfer">Transfer</NavLink>
 									</Text>
 									<Text fontSize="2xl" paddingBottom="3">
-										<NavLink to="/transactions">Transactions</NavLink>
+										<NavLink to="/userTransactions">Transactions</NavLink>
 									</Text>
 								</DrawerBody>
 								<DrawerFooter borderTopWidth="1px" justifyContent="flex-start">

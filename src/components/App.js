@@ -11,7 +11,7 @@ import './App.css';
 
 const Dashboard = lazy(() => import('./dashboard'));
 const Transfer = lazy(() => import('./transfer'));
-const Transactions = lazy(() => import('./transactions'));
+const UserTransactions = lazy(() => import('./userTransactions'));
 
 const App = () => {
 	const [userDetails, setUserDetails] = useState({});
@@ -35,7 +35,7 @@ const App = () => {
 							<div style={{ minHeight: '84.5vh' }}>
 								<Route exact path="/dashboard" component={Dashboard} />
 								<Route exact path="/transfer" component={Transfer} />
-								<Route exact path="/transactions" component={Transactions} />
+								<Route exact path="/userTransactions" component={UserTransactions} />
 								<Route exact path="/">
 									<Home
 										setUserDetails={setUserDetails}
