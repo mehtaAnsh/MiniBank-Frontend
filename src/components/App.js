@@ -13,9 +13,14 @@ const Dashboard = lazy(() => import('./dashboard'));
 const Transfer = lazy(() => import('./transfer'));
 const UserTransactions = lazy(() => import('./userTransactions'));
 
+const AdminHome = lazy(() => import('./admin/home'));
+const AdminTransfer = lazy(() => import('./admin/transfer'));
+const AdminUsers = lazy(() => import('./admin/users'));
+
 const App = () => {
 	const [userDetails, setUserDetails] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const loader = () => (
 		<div className="d-flex justify-content-center" data-aos="fade-out">
 			<div className="spinner-border" role="status" style={{ marginTop: '50vh' }}>
@@ -29,18 +34,33 @@ const App = () => {
 			<AuthContext.Provider value={{ isLoggedIn, userDetails }}>
 				<BrowserRouter>
 					<Suspense fallback={loader}>
-						<Header setUserDetails={setUserDetails} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+						<Header
+							isAdmin={isAdmin}
+							setIsAdmin={setIsAdmin}
+							setUserDetails={setUserDetails}
+							isLoggedIn={isLoggedIn}
+							setIsLoggedIn={setIsLoggedIn}
+						/>
 						<Toaster />
 						<Switch>
 							<div style={{ minHeight: '84.5vh' }}>
+								{/* Customer routes */}
 								<Route exact path="/dashboard" component={Dashboard} />
 								<Route exact path="/transfer" component={Transfer} />
 								<Route exact path="/userTransactions" component={UserTransactions} />
+
+								{/* Admin routes*/}
+								<Route exact path="/admin/home" component={AdminHome} />
+								<Route exact path="/admin/users" component={AdminUsers} />
+								<Route exact path="/admin/transfer" component={AdminTransfer} />
+
 								<Route exact path="/">
 									<Home
 										setUserDetails={setUserDetails}
 										isLoggedIn={isLoggedIn}
 										setIsLoggedIn={setIsLoggedIn}
+										isAdmin={isAdmin}
+										setIsAdmin={setIsAdmin}
 									/>
 								</Route>
 							</div>

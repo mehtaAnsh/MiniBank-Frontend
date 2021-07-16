@@ -80,6 +80,47 @@ const Header = props => {
 					</>
 				)}
 
+				{props.isAdmin && (
+					<>
+						<Button ref={btnRef} colorScheme="blue" onClick={onOpen}>
+							<GiHamburgerMenu />
+						</Button>
+						<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+							<DrawerOverlay />
+							<DrawerContent>
+								<DrawerCloseButton />
+								<DrawerHeader borderBottomWidth="1px">Hello admin!</DrawerHeader>
+								<DrawerBody>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/admin/home">Home</NavLink>
+									</Text>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/admin/users">All Users</NavLink>
+									</Text>
+									<Text fontSize="2xl" paddingBottom="3">
+										<NavLink to="/admin/transfer">Transfer Money</NavLink>
+									</Text>
+								</DrawerBody>
+								<DrawerFooter borderTopWidth="1px" justifyContent="flex-start">
+									<Button
+										variant="outline"
+										bg="red.500"
+										onClick={() => {
+											localStorage.clear();
+											props.setIsAdmin(false);
+											props.setUserDetails({});
+											toast.success('Logging out..');
+											setTimeout(() => history.push('/'), 3000);
+										}}
+									>
+										Log out
+									</Button>
+								</DrawerFooter>
+							</DrawerContent>
+						</Drawer>
+					</>
+				)}
+
 				<Flex flex={{ base: 1 }} justify={{ base: 'center' }}>
 					<Text fontSize="2xl" fontFamily={'heading'} color={useColorModeValue('gray.800', 'white')}>
 						<NavLink to="/">MiniBank</NavLink>
