@@ -12,14 +12,13 @@ const Dashboard = props => {
 	const auth = useContext(AuthContext);
 
 	useEffect(async () => {
-		if (props.location.state === undefined) {
+		if (props.location.state === undefined && localStorage.getItem('id') === null) {
 			history.push('/');
 			return;
 		}
-		console.log(auth);
-		setId(auth.userDetails.id);
+		setId(localStorage.getItem('id'));
 		await api
-			.post('/getBal', { id: auth.userDetails.id })
+			.post('/getBal', { id: localStorage.getItem('id') })
 			.then(res => {
 				if (res.status === 201) setBal(res.data.balance);
 			})

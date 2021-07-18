@@ -13,7 +13,7 @@ const AdminAllTransactions = () => {
 	const [users, setUsers] = useState([]);
 
 	useEffect(async () => {
-		if (!auth.isAdmin) {
+		if (!auth.isAdmin && localStorage.getItem('admin') === null) {
 			history.push('/');
 			return;
 		}

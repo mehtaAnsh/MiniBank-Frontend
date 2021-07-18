@@ -33,6 +33,7 @@ const Home = props => {
 		if (email === 'admin' && password === 'admin') {
 			toast.success('Welcome admin!');
 			props.setIsAdmin(true);
+			localStorage.setItem('admin', true);
 			setTimeout(() => history.push('/admin/home', { status: true }), 3000);
 			return;
 		}

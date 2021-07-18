@@ -13,12 +13,12 @@ const Transactions = () => {
 	const [data, setData] = useState([]);
 
 	useEffect(async () => {
-		if (!auth.isLoggedIn) {
+		if (!auth.isLoggedIn && localStorage.getItem('id') === null) {
 			history.push('/');
 			return;
 		} else
 			await api
-				.post('/getTransactionsById', { id: auth.userDetails.id })
+				.post('/getTransactionsById', { id: auth.userDetails.id || localStorage.getItem('id') })
 				.then(res => {
 					if (res.status === 201) {
 						var arr = res.data.sortedArray.reverse();

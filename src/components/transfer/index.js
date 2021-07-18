@@ -26,7 +26,7 @@ const Transfer = () => {
 	const [amt, setAmt] = useState();
 
 	useEffect(() => {
-		if (!auth.isLoggedIn) {
+		if (!auth.isLoggedIn && localStorage.getItem('id') === null) {
 			history.push('/');
 			return;
 		}
@@ -38,7 +38,7 @@ const Transfer = () => {
 			return;
 		}
 		await api
-			.post('/transfer', { sender: auth.userDetails.id, receiver: id, amt })
+			.post('/transfer', { sender: auth.userDetails.id || localStorage.getItem('id'), receiver: id, amt })
 			.then(res => {
 				console.log(res);
 				if (res.status === 201) {

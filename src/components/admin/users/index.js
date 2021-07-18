@@ -35,11 +35,11 @@ const AdminUsers = () => {
 	const firstField = React.useRef();
 
 	useEffect(async () => {
-		if (!auth.isAdmin) {
+		if (!auth.isAdmin && localStorage.getItem('admin') === null) {
 			history.push('/');
 			return;
 		}
-		if (auth.usersObj.length === 0) {
+		if (auth.usersObj === undefined || auth.usersObj.length === 0) {
 			await api
 				.get('/getUsers', {})
 				.then(res => {

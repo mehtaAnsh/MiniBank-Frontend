@@ -35,7 +35,7 @@ const AdminTransfer = () => {
 	const [amt, setAmt] = useState();
 
 	useEffect(async () => {
-		if (!auth.isAdmin) {
+		if (!auth.isAdmin && localStorage.getItem('admin') === null) {
 			history.push('/');
 			return;
 		}
@@ -46,7 +46,7 @@ const AdminTransfer = () => {
 			});
 			setDropDownArr(dropdownArr);
 		}
-		if (auth.usersObj.length === 0) {
+		if (auth.usersObj === undefined || auth.usersObj.length === 0) {
 			await api
 				.get('/getUsers', {})
 				.then(res => {
