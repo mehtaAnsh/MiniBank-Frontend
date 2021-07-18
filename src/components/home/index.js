@@ -38,17 +38,19 @@ const Home = props => {
 			return;
 		}
 
+		const toastID = toast.loading('Verifying...');
+
 		await api
 			.post(`/verify`, { email, password })
 			.then(res => {
 				localStorage.setItem('id', res.data.id);
 				props.setUserDetails(res.data);
 				props.setIsLoggedIn(true);
-				toast.success('Success! You are logged in.');
+				toast.success('Success! You are logged in.', { id: toastID });
 				setTimeout(() => history.push('/dashboard', { status: true }), 3000);
 			})
 			.catch(err => {
-				toast.error(err.response.data.message);
+				toast.error(err.response.data.message || 'An Error occured.', { id: toastID });
 			});
 	};
 

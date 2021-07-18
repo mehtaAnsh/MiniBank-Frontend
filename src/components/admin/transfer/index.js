@@ -65,16 +65,17 @@ const AdminTransfer = () => {
 			toast.error('Fill all parameters');
 			return;
 		}
+		const toastID = toast.loading('Processing...');
 		await api
 			.post('/transact', { id, type, amt })
 			.then(res => {
 				if (res.status === 201) {
-					toast.success('Money transferred sucessfully!');
+					toast.success('Money transferred sucessfully!', { id: toastID });
 				} else {
-					toast.error('An unknown error occured. Please try again.');
+					toast.error('An unknown error occured. Please try again.', { id: toastID });
 				}
 			})
-			.catch(err => toast.error(err.response.data.message));
+			.catch(err => toast.error(err.response.data.message, { id: toastID }));
 	};
 
 	return (

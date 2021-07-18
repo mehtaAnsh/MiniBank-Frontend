@@ -33,8 +33,9 @@ const Transfer = () => {
 	}, []);
 
 	const onFormSubmit = async () => {
+		const toastID = toast.loading('Processing...');
 		if (amt > auth.userDetails.balance) {
-			toast.error('Amount exceeds balance in bank!');
+			toast.error('Amount exceeds balance in bank!', { id: toastID });
 			return;
 		}
 		await api
@@ -42,12 +43,12 @@ const Transfer = () => {
 			.then(res => {
 				console.log(res);
 				if (res.status === 201) {
-					toast.success('Money transferred successfully!');
+					toast.success('Money transferred successfully!', { id: toastID });
 				} else {
-					toast.error('An error occured. Please refresh the page and try again.');
+					toast.error('An error occured. Please refresh the page and try again.', { id: toastID });
 				}
 			})
-			.catch(err => toast.error(err.response.data.message));
+			.catch(err => toast.error(err.response.data.message, { id: toastID }));
 	};
 
 	return (
