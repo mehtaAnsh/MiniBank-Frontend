@@ -39,9 +39,8 @@ const Transfer = () => {
 			return;
 		}
 		await api
-			.post('/transfer', { sender: auth.userDetails.id || localStorage.getItem('id'), receiver: id, amt })
+			.post('/transfer', { sender_email: localStorage.getItem('email'), receiver: id, amt })
 			.then(res => {
-				console.log(res);
 				if (res.status === 201) {
 					toast.success('Money transferred successfully!', { id: toastID });
 				} else {
@@ -70,7 +69,7 @@ const Transfer = () => {
 									type="text"
 								/>
 								<FormHelperText>Make sure to enter correct ID of 16 length.</FormHelperText>
-								<FormHelperText>Add this to transfer: 6136533638928856 (for testing)</FormHelperText>
+								<FormHelperText>Add this to transfer: 2929611061311379 (for testing)</FormHelperText>
 							</FormControl>
 						</Center>
 						<Center>

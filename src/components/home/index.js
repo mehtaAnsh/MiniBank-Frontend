@@ -44,6 +44,7 @@ const Home = props => {
 			.post(`/verify`, { email, password })
 			.then(res => {
 				localStorage.setItem('id', res.data.id);
+				localStorage.setItem('email', email);
 				props.setUserDetails(res.data);
 				props.setIsLoggedIn(true);
 				toast.success('Success! You are logged in.', { id: toastID });

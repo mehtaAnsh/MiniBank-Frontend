@@ -21,7 +21,7 @@ const AdminAllTransactions = () => {
 		await api
 			.get('/getAllTransactions', {})
 			.then(res => {
-				if (res.status === 201) {
+				if (res.status === 200) {
 					var arr = res.data.transactions.reverse();
 					arr.forEach(obj => {
 						if (obj.sender_id === 100) obj.sender_id = <b>Transferred from bank</b>;
@@ -37,7 +37,7 @@ const AdminAllTransactions = () => {
 	const columns = [
 		{
 			name: 'Transaction ID',
-			selector: '_id',
+			selector: 'transaction_id',
 		},
 		{
 			name: 'Sender ID',

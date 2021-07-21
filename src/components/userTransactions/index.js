@@ -20,7 +20,7 @@ const Transactions = () => {
 			await api
 				.post('/getTransactionsById', { id: auth.userDetails.id || localStorage.getItem('id') })
 				.then(res => {
-					if (res.status === 201) {
+					if (res.status === 200) {
 						var arr = res.data.sortedArray.reverse();
 						arr.forEach(obj => {
 							if (obj.sender_id === 100) obj.sender_id = <b>Transferred from bank</b>;
@@ -37,7 +37,7 @@ const Transactions = () => {
 	const columns = [
 		{
 			name: 'Transaction ID',
-			selector: '_id',
+			selector: 'transaction_id',
 		},
 		{
 			name: 'Receiver ID',

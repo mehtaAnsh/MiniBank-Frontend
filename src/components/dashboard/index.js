@@ -1,15 +1,13 @@
 import { Flex, Container, Box, Center, Divider, Text } from '@chakra-ui/layout';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
 import api from '../../api';
 
 const Dashboard = props => {
 	const history = useHistory();
 	const [id, setId] = useState('');
 	const [balance, setBal] = useState(0);
-	const auth = useContext(AuthContext);
 
 	useEffect(async () => {
 		if (props.location.state === undefined && localStorage.getItem('id') === null) {
@@ -18,9 +16,9 @@ const Dashboard = props => {
 		}
 		setId(localStorage.getItem('id'));
 		await api
-			.post('/getBal', { id: localStorage.getItem('id') })
+			.post('/getBal', { email: localStorage.getItem('email') })
 			.then(res => {
-				if (res.status === 201) setBal(res.data.balance);
+				if (res.status === 200) setBal(res.data.balance);
 			})
 			.catch(err => toast.error(err.response.data.message));
 		setTimeout(() => toast.success('Check the sidebar for all features.'), 1000);
