@@ -14,11 +14,15 @@ import {
 	Button,
 } from '@chakra-ui/react';
 import toast from 'react-hot-toast';
+import Amplify, { Auth } from 'aws-amplify';
 import { motion } from 'framer-motion';
+import awsconfig from '../../aws-exports';
 
 import api from '../../api';
 
 const Home = props => {
+	Amplify.configure(awsconfig);
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -40,19 +44,38 @@ const Home = props => {
 
 		const toastID = toast.loading('Verifying...');
 
-		await api
-			.post(`/verify`, { email, password })
-			.then(res => {
-				localStorage.setItem('id', res.data.id);
-				localStorage.setItem('email', email);
-				props.setUserDetails(res.data);
-				props.setIsLoggedIn(true);
-				toast.success('Success! You are logged in.', { id: toastID });
-				setTimeout(() => history.push('/dashboard', { status: true }), 3000);
-			})
-			.catch(err => {
-				toast.error(err.response.data.message || 'An Error occured.', { id: toastID });
+		try {
+			await Auth.signIn(email, password).then(async () => {
+				await api
+					.post(`/getUserDetails`, { email })
+					.then(res => {
+						localStorage.setItem('id', res.data.id);
+						localStorage.setItem('email', email);
+						props.setUserDetails(res.data);
+						props.setIsLoggedIn(true);
+						toast.success('Success! You are logged in.', { id: toastID });
+						setTimeout(() => history.push('/dashboard', { status: true }), 3000);
+					})
+					.catch(err => {
+						toast.error(err.response.data.message || 'An Error occured.', { id: toastID });
+					});
 			});
+		} catch (error) {
+			if (error.code === 'UserNotConfirmedException') {
+				await api
+					.post(`/getUserDetails`, { email })
+					.then(res => {
+						localStorage.setItem('email', email);
+						props.setIsLoggedIn(true);
+						props.setUserDetails(res.data);
+						toast.success('Redirecting to verification page...', { id: toastID });
+						setTimeout(() => history.push('/verify', { email, id: res.data.id, status: true }), 3000);
+					})
+					.catch(err => {
+						toast.error(err.response.data.message || 'An Error occured.', { id: toastID });
+					});
+			} else toast.error(`Failed: ${error.message}`, { id: toastID });
+		}
 	};
 
 	return (

@@ -13,17 +13,22 @@ import {
 	DrawerFooter,
 	Button,
 	FormControl,
+	FormHelperText,
 } from '@chakra-ui/react';
 import { GrAdd } from 'react-icons/gr';
 import React, { useEffect, useState, useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthContext';
 import DataTable from 'react-data-table-component';
+import Amplify, { Auth } from 'aws-amplify';
+
+import { AuthContext } from '../../../context/AuthContext';
 import api from '../../../api';
-import { FormHelperText } from '@chakra-ui/react';
+import awsconfig from '../../../aws-exports';
 
 const AdminUsers = () => {
+	Amplify.configure(awsconfig);
+
 	const auth = useContext(AuthContext);
 	const history = useHistory();
 
@@ -57,24 +62,34 @@ const AdminUsers = () => {
 			toast.error('Fill required parameters');
 			return;
 		}
-		await api
-			.post('/create_user', { email, balance: bal })
-			.then(async res => {
-				if (res.status === 201) {
-					toast.success('User added successfully! An e-mail has been sent with login credentials.');
-					onClose();
-					await api
-						.get('/getUsers', {})
-						.then(res => {
-							auth.usersObj = res.data.users;
-							setUsers(auth.usersObj);
-						})
-						.catch(err => toast.error('AN error occured.'));
-				} else {
-					toast.error('An error occured.');
-				}
-			})
-			.catch(err => toast.error(err.response.data.message));
+
+		try {
+			await Auth.signUp({
+				username: email,
+				password: 'abc@1234',
+			}).then(async () => {
+				await api
+					.post('/create_user', { email, balance: bal })
+					.then(async res => {
+						if (res.status === 201) {
+							toast.success('User added successfully! An e-mail has been sent with login credentials.');
+							await api
+								.get('/getUsers', {})
+								.then(res => {
+									auth.usersObj = res.data.users;
+									setUsers(auth.usersObj);
+								})
+								.catch(err => toast.error('AN error occured.'));
+						} else {
+							toast.error('An error occured.');
+						}
+					})
+					.catch(err => toast.error(err.response.data.message));
+			});
+		} catch (error) {
+			console.error(error);
+			toast.error(`Failed: ${error.message}`);
+		}
 	};
 
 	const columns = [

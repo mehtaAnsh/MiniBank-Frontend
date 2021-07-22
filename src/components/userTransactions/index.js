@@ -18,7 +18,7 @@ const Transactions = () => {
 			return;
 		} else
 			await api
-				.post('/getTransactionsById', { id: auth.userDetails.id || localStorage.getItem('id') })
+				.post('/getTransactionsById', { email: localStorage.getItem('email') })
 				.then(res => {
 					if (res.status === 200) {
 						var arr = res.data.sortedArray.reverse();

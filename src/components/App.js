@@ -1,5 +1,5 @@
 import React, { Suspense, useState, lazy } from 'react';
-import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import Header from './header';
@@ -9,6 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 
 import './App.css';
 
+const Verify = lazy(() => import('./verify'));
 const Dashboard = lazy(() => import('./dashboard'));
 const Transfer = lazy(() => import('./transfer'));
 const UserTransactions = lazy(() => import('./userTransactions'));
@@ -46,6 +47,9 @@ const App = () => {
 						<Switch>
 							<div style={{ minHeight: '84.5vh' }}>
 								{/* Customer routes */}
+								<Route exact path="/verify">
+									<Verify setIsLoggedIn={setIsLoggedIn} />
+								</Route>
 								<Route exact path="/dashboard" component={Dashboard} />
 								<Route exact path="/transfer" component={Transfer} />
 								<Route exact path="/userTransactions" component={UserTransactions} />

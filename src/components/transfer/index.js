@@ -69,7 +69,7 @@ const Transfer = () => {
 									type="text"
 								/>
 								<FormHelperText>Make sure to enter correct ID of 16 length.</FormHelperText>
-								<FormHelperText>Add this to transfer: 2929611061311379 (for testing)</FormHelperText>
+								<FormHelperText>Add this to transfer: 1903083123925218 (for testing)</FormHelperText>
 							</FormControl>
 						</Center>
 						<Center>
