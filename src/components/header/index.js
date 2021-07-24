@@ -37,16 +37,18 @@ const Header = props => {
 						<DrawerHeader borderBottomWidth="1px">Hello admin!</DrawerHeader>
 						<DrawerBody>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/admin/home">Home</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/admin/home`}>Home</NavLink>
 							</Text>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/admin/users">All Users</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/admin/users`}>All Users</NavLink>
 							</Text>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/admin/transfer">Transfer Money</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/admin/transfer`}>Transfer Money</NavLink>
 							</Text>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/admin/allTransactions">All Transactions</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/admin/allTransactions`}>
+									All Transactions
+								</NavLink>
 							</Text>
 						</DrawerBody>
 						<DrawerFooter borderTopWidth="1px" justifyContent="flex-start">
@@ -83,13 +85,13 @@ const Header = props => {
 						<DrawerHeader borderBottomWidth="1px">Hello user!</DrawerHeader>
 						<DrawerBody>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/dashboard">Home</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/dashboard`}>Home</NavLink>
 							</Text>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/transfer">Transfer</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/transfer`}>Transfer</NavLink>
 							</Text>
 							<Text fontSize="2xl" paddingBottom="3">
-								<NavLink to="/userTransactions">Transactions</NavLink>
+								<NavLink to={`${process.env.PUBLIC_URL}/userTransactions`}>Transactions</NavLink>
 							</Text>
 						</DrawerBody>
 						<DrawerFooter borderTopWidth="1px" justifyContent="flex-start">
@@ -132,7 +134,7 @@ const Header = props => {
 
 				<Flex flex={{ base: 1 }} justify={{ base: 'center' }}>
 					<Text fontSize="2xl" fontFamily={'heading'} color={useColorModeValue('gray.800', 'white')}>
-						<NavLink to="/">MiniBank</NavLink>
+						<NavLink to={`${process.env.PUBLIC_URL}/`}>MiniBank</NavLink>
 					</Text>
 				</Flex>
 			</Flex>

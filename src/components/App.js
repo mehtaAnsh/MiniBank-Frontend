@@ -1,5 +1,5 @@
 import React, { Suspense, useState, lazy } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import Header from './header';
@@ -34,7 +34,7 @@ const App = () => {
 	return (
 		<div style={{ minHeight: '100vh' }}>
 			<AuthContext.Provider value={{ isAdmin, isLoggedIn, userDetails }}>
-				<BrowserRouter>
+				<BrowserRouter basename={`/MiniBank-Frontend`}>
 					<Suspense fallback={loader}>
 						<Header
 							isAdmin={isAdmin}
@@ -47,20 +47,32 @@ const App = () => {
 						<Switch>
 							<div style={{ minHeight: '84.5vh' }}>
 								{/* Customer routes */}
-								<Route exact path="/verify">
+								<Route exact path={`${process.env.PUBLIC_URL}/verify`}>
 									<Verify setIsLoggedIn={setIsLoggedIn} />
 								</Route>
-								<Route exact path="/dashboard" component={Dashboard} />
-								<Route exact path="/transfer" component={Transfer} />
-								<Route exact path="/userTransactions" component={UserTransactions} />
+								<Route exact path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} />
+								<Route exact path={`${process.env.PUBLIC_URL}/transfer`} component={Transfer} />
+								<Route
+									exact
+									path={`${process.env.PUBLIC_URL}/userTransactions`}
+									component={UserTransactions}
+								/>
 
 								{/* Admin routes*/}
-								<Route exact path="/admin/home" component={AdminHome} />
-								<Route exact path="/admin/users" component={AdminUsers} />
-								<Route exact path="/admin/transfer" component={AdminTransfer} />
-								<Route exact path="/admin/allTransactions" component={AdminAllTransactions} />
+								<Route exact path={`${process.env.PUBLIC_URL}/admin/home`} component={AdminHome} />
+								<Route exact path={`${process.env.PUBLIC_URL}/admin/users`} component={AdminUsers} />
+								<Route
+									exact
+									path={`${process.env.PUBLIC_URL}/admin/transfer`}
+									component={AdminTransfer}
+								/>
+								<Route
+									exact
+									path={`${process.env.PUBLIC_URL}/admin/allTransactions`}
+									component={AdminAllTransactions}
+								/>
 
-								<Route exact path="/">
+								<Route exact path={`${process.env.PUBLIC_URL}/`}>
 									<Home
 										setUserDetails={setUserDetails}
 										isLoggedIn={isLoggedIn}
@@ -69,6 +81,7 @@ const App = () => {
 										setIsAdmin={setIsAdmin}
 									/>
 								</Route>
+								<Redirect to={`/`}></Redirect>
 							</div>
 						</Switch>
 						<Footer />
