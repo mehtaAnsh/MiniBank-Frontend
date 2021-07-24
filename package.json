@@ -2,7 +2,7 @@
 	"name": "minibank",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://mehtaAnsh.github.io/MiniBank-frontend",
+	"homepage": "https://mehtaansh.github.io/MiniBank-Frontend",
 	"dependencies": {
 		"@aws-amplify/ui-react": "^1.2.6",
 		"@chakra-ui/react": "^1.6.5",
