@@ -9,8 +9,8 @@ Tech Stack:
 - Amazon DynamoDB
 - AWS Amplify (for Auth)
 
-To run the code:
-> npm install
+To run the code, clone the repository and run the following commands:
+> npm install <br/>
 > npm start
 
 Please star the repository if it helped in any way!
