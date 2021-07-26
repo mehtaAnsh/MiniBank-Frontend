@@ -34,7 +34,7 @@ const App = () => {
 	return (
 		<div style={{ minHeight: '100vh' }}>
 			<AuthContext.Provider value={{ isAdmin, isLoggedIn, userDetails }}>
-				<BrowserRouter basename={`/MiniBank-Frontend`}>
+				<BrowserRouter>
 					<Suspense fallback={loader}>
 						<Header
 							isAdmin={isAdmin}
